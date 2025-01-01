@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres-db
+    ports:
+      - "8888:5432"  # Host port 5432 maps to container port 5432
+    environment:
+      POSTGRES_USER: admin        # Username for PostgreSQL
+      POSTGRES_PASSWORD: password # Password for PostgreSQL
+      POSTGRES_DB: mydatabase     # Database name
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin
+    ports:
+      - "9999:80"  # Host port 5050 maps to container port 80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com  # pgAdmin login email
+      PGADMIN_DEFAULT_PASSWORD: admin          # pgAdmin login password
+    depends_on:
+      - postgres  # Ensure PostgreSQL starts before pgAdmin
